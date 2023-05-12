@@ -12,7 +12,7 @@ async def req():
         "post", 'http://localhost:8080/',
         data=json.dumps({"name": "Test user", "number": 100}),
         headers={"content-type": "application/json"})
-    print(str(resp))
+    print(resp)
     print(await resp.text())
     assert 200 == resp.status
 

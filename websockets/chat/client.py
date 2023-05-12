@@ -28,7 +28,7 @@ async def start_client(url: str) -> None:
                 if msg.type == aiohttp.WSMsgType.CLOSE:
                     await ws.close()
                 elif msg.type == aiohttp.WSMsgType.ERROR:
-                    print("Error during receive %s" % ws.exception())
+                    print(f"Error during receive {ws.exception()}")
                 elif msg.type == aiohttp.WSMsgType.CLOSED:
                     pass
 
@@ -41,7 +41,7 @@ async def start_client(url: str) -> None:
 
             # Exit with Ctrl+D
             while line := await asyncio.to_thread(sys.stdin.readline):
-                await ws.send_str(name + ": " + line)
+                await ws.send_str(f"{name}: {line}")
 
             dispatch_task.cancel()
             with suppress(asyncio.CancelledError):

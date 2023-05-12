@@ -28,7 +28,7 @@ for i in range(10):
         'id': 1
     })
 
-print(f'get')
+print('get')
 r = requests.post('http://127.0.0.1:8080/', json={
     'jsonrpc': '2.0',
     'method': 'get',

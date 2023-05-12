@@ -18,7 +18,8 @@ async def start_client(loop, url):
         if not line:
             loop.stop()
         else:
-            ws.send_str(name + ': ' + line)
+            ws.send_str(f'{name}: {line}')
+
     loop.add_reader(sys.stdin.fileno(), stdin_callback)
 
     async def dispatch():
@@ -37,7 +38,7 @@ async def start_client(loop, url):
                 if msg.type == aiohttp.WSMsgType.CLOSE:
                     await ws.close()
                 elif msg.type == aiohttp.WSMsgType.ERROR:
-                    print('Error during receive %s' % ws.exception())
+                    print(f'Error during receive {ws.exception()}')
                 elif msg.type == aiohttp.WSMsgType.CLOSED:
                     pass
 
@@ -61,7 +62,7 @@ if __name__ == '__main__':
         args.host, port = args.host.split(':', 1)
         args.port = int(port)
 
-    url = 'http://{}:{}/ws'.format(args.host, args.port)
+    url = f'http://{args.host}:{args.port}/ws'
 
     loop = asyncio.get_event_loop()
     loop.add_signal_handler(signal.SIGINT, loop.stop)
